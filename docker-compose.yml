@@ -1,7 +1,7 @@
 services:
+  # ---------- PostgreSQL: одна база app на все сервисы (у каждого сервиса свои таблицы) ----------
   db:
     image: postgres:16
-    container_name: library-db
     environment:
       POSTGRES_DB: app
       POSTGRES_USER: postgres
@@ -16,21 +16,76 @@ services:
       timeout: 5s
       retries: 10
 
-  api:
-    build: .
-    container_name: library-api
+  # ---------- Сервис 1: каталог книг ----------
+  catalog-service:
+    build: ./catalog-service
     environment:
-      # db - имя сервиса выше, Docker DNS внутри сети library-net разрешает его в адрес контейнера
       DB_HOST: db
       DB_PORT: "5432"
       DB_NAME: app
       DB_USER: postgres
       DB_PASSWORD: "1234"
     ports:
-      - "8080:8080"
+      - "8081:8081"
     depends_on:
       db:
         condition: service_healthy
+    networks:
+      - library-net
+    restart: on-failure
+
+  # ---------- Сервис 2: читатели ----------
+  reader-service:
+    build: ./reader-service
+    environment:
+      DB_HOST: db
+      DB_PORT: "5432"
+      DB_NAME: app
+      DB_USER: postgres
+      DB_PASSWORD: "1234"
+    ports:
+      - "8082:8082"
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - library-net
+    restart: on-failure
+
+  # ---------- Сервис 3: выдачи. Обращается к catalog-service и reader-service по HTTP ----------
+  loan-service:
+    build: ./loan-service
+    environment:
+      DB_HOST: db
+      DB_PORT: "5432"
+      DB_NAME: app
+      DB_USER: postgres
+      DB_PASSWORD: "1234"
+      # Адреса соседних сервисов: имя сервиса из этого файла + порт внутри сети
+      CATALOG_URL: http://catalog-service:8081
+      READER_URL: http://reader-service:8082
+    ports:
+      - "8083:8083"
+    depends_on:
+      db:
+        condition: service_healthy
+      catalog-service:
+        condition: service_started
+      reader-service:
+        condition: service_started
+    networks:
+      - library-net
+    restart: on-failure
+
+  # ---------- API Gateway: единая входная точка ----------
+  gateway:
+    build: ./gateway
+    ports:
+      - "8080:80"
+    depends_on:
+      - catalog-service
+      - reader-service
+      - loan-service
     networks:
       - library-net
     restart: on-failure

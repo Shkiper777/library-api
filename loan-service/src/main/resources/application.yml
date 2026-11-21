@@ -1,0 +1,20 @@
+server:
+  port: 8083
+
+spring:
+  application:
+    name: loan-service
+  datasource:
+    # Хост db - имя сервиса из docker-compose.yml
+    url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${DB_NAME:app}
+    username: ${DB_USER:postgres}
+    password: ${DB_PASSWORD:1234}
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: update
+
+# Адреса соседних сервисов: имена catalog-service и reader-service - это имена сервисов из docker-compose.yml
+services:
+  catalog-url: ${CATALOG_URL:http://localhost:8081}
+  reader-url: ${READER_URL:http://localhost:8082}

@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
-# Данные в запросах - латиницей: Git Bash на Windows портит кириллицу в аргументах curl (получается 400).
 # Проверка CRUD: создаёт, читает, меняет и удаляет временную книгу.
-# Дополнительно создаёт книгу "Crime and Punishment", которая остаётся в базе для проверки сохранения данных.
+# Дополнительно создаёт книгу "Преступление и наказание", которая остаётся в базе для проверки сохранения данных.
 # Использование: scripts/crud-check.sh [BASE_URL]
 set -u
 BASE="${1:-http://localhost:8080}"
@@ -15,8 +14,8 @@ run() {
 
 echo "=== CREATE ==="
 out=$(curl -s -w '\nHTTP %{http_code}' -X POST "$BASE/books" -H "$JSON" \
-  -d '{"title":"The Master and Margarita","author":"Mikhail Bulgakov","publishedYear":1967,"copies":3}')
-echo "\$ curl -X POST $BASE/books -H '$JSON' -d '{\"title\":\"The Master and Margarita\",...}'"
+  -d '{"title":"Мастер и Маргарита","author":"Михаил Булгаков","publishedYear":1967,"copies":3}')
+echo "\$ curl -X POST $BASE/books -H '$JSON' -d '{\"title\":\"Мастер и Маргарита\",...}'"
 echo "$out"
 ID=$(echo "$out" | sed -n 's/.*"id": *\([0-9][0-9]*\).*/\1/p' | head -n1)
 if [ -z "$ID" ]; then echo "Не удалось получить id созданной книги" >&2; exit 1; fi
@@ -29,7 +28,7 @@ run "$BASE/books/$ID"
 
 echo; echo "=== UPDATE ==="
 run -X PUT "$BASE/books/$ID" -H "$JSON" \
-  -d '{"title":"The Master and Margarita","author":"Mikhail Bulgakov","publishedYear":1967,"copies":5}'
+  -d '{"title":"Мастер и Маргарита","author":"Михаил Булгаков","publishedYear":1967,"copies":5}'
 
 echo; echo "=== DELETE ==="
 run -X DELETE "$BASE/books/$ID"
@@ -42,4 +41,4 @@ run -X POST "$BASE/books" -H "$JSON" -d '{"title":"","author":"","publishedYear"
 
 echo; echo "=== CREATE книги, которая останется в базе ==="
 run -X POST "$BASE/books" -H "$JSON" \
-  -d '{"title":"Crime and Punishment","author":"Fyodor Dostoevsky","publishedYear":1866,"copies":2}'
+  -d '{"title":"Преступление и наказание","author":"Фёдор Достоевский","publishedYear":1866,"copies":2}'
