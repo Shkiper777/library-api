@@ -1,0 +1,46 @@
+=== CREATE ===
+$ curl -X POST http://localhost:8080/books -H 'Content-Type: application/json' -d '{"title":"The Master and Margarita",...}'
+{"id":1,"title":"The Master and Margarita","author":"Mikhail Bulgakov","publishedYear":1967,"copies":3}
+HTTP 201
+
+=== READ (list) ===
+
+$ curl http://localhost:8080/books
+[{"id":1,"title":"The Master and Margarita","author":"Mikhail Bulgakov","publishedYear":1967,"copies":3}]
+HTTP 200
+
+=== READ (one) ===
+
+$ curl http://localhost:8080/books/1
+{"id":1,"title":"The Master and Margarita","author":"Mikhail Bulgakov","publishedYear":1967,"copies":3}
+HTTP 200
+
+=== UPDATE ===
+
+$ curl -X PUT http://localhost:8080/books/1 -H Content-Type: application/json -d {"title":"The Master and Margarita","author":"Mikhail Bulgakov","publishedYear":1967,"copies":5}
+{"id":1,"title":"The Master and Margarita","author":"Mikhail Bulgakov","publishedYear":1967,"copies":5}
+HTTP 200
+
+=== DELETE ===
+
+$ curl -X DELETE http://localhost:8080/books/1
+
+HTTP 204
+
+=== READ after delete (ожидается 404) ===
+
+$ curl http://localhost:8080/books/1
+{"timestamp":"2026-11-21T06:14:59.961+00:00","status":404,"error":"Not Found","path":"/books/1"}
+HTTP 404
+
+=== Валидация (ожидается 400) ===
+
+$ curl -X POST http://localhost:8080/books -H Content-Type: application/json -d {"title":"","author":"","publishedYear":0,"copies":-1}
+{"timestamp":"2026-11-21T06:15:00.228+00:00","status":400,"error":"Bad Request","path":"/books"}
+HTTP 400
+
+=== CREATE книги, которая останется в базе ===
+
+$ curl -X POST http://localhost:8080/books -H Content-Type: application/json -d {"title":"Crime and Punishment","author":"Fyodor Dostoevsky","publishedYear":1866,"copies":2}
+{"id":2,"title":"Crime and Punishment","author":"Fyodor Dostoevsky","publishedYear":1866,"copies":2}
+HTTP 201

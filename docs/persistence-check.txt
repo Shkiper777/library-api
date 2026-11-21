@@ -1,0 +1,35 @@
+$ docker compose down
+ Container library-api Stopping 
+ Container library-api Stopped 
+ Container library-api Removing 
+ Container library-api Removed 
+ Container library-db Stopping 
+ Container library-db Stopped 
+ Container library-db Removing 
+ Container library-db Removed 
+ Network library-api_library-net Removing 
+ Network library-api_library-net Removed 
+
+$ docker compose up -d
+ Network library-api_library-net Creating 
+ Network library-api_library-net Creating 
+ Network library-api_library-net Created 
+ Network library-api_library-net Created 
+ Container library-db Creating 
+ Container library-db Created 
+ Container library-api Creating 
+ Container library-api Created 
+ Container library-db Starting 
+ Container library-db Started 
+ Container library-db Waiting 
+ Container library-db Healthy 
+ Container library-api Starting 
+ Container library-api Started 
+
+$ docker compose ps
+NAME          IMAGE             COMMAND                  SERVICE   CREATED          STATUS                    PORTS
+library-api   library-api-api   "java -jar app.jar"      api       24 seconds ago   Up 18 seconds             0.0.0.0:8080->8080/tcp, [::]:8080->8080/tcp
+library-db    postgres:16       "docker-entrypoint.s…"   db        24 seconds ago   Up 24 seconds (healthy)   5432/tcp
+
+$ curl http://localhost:8080/books   (после перезапуска)
+[{"id":2,"title":"Crime and Punishment","author":"Fyodor Dostoevsky","publishedYear":1866,"copies":2}]

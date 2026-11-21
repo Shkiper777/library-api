@@ -1,0 +1,42 @@
+services:
+  db:
+    image: postgres:16
+    container_name: library-db
+    environment:
+      POSTGRES_DB: app
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: "1234"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    networks:
+      - library-net
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d app"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  api:
+    build: .
+    container_name: library-api
+    environment:
+      # db - имя сервиса выше, Docker DNS внутри сети library-net разрешает его в адрес контейнера
+      DB_HOST: db
+      DB_PORT: "5432"
+      DB_NAME: app
+      DB_USER: postgres
+      DB_PASSWORD: "1234"
+    ports:
+      - "8080:8080"
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - library-net
+    restart: on-failure
+
+networks:
+  library-net:
+
+volumes:
+  db_data:

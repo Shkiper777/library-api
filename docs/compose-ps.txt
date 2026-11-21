@@ -1,0 +1,3 @@
+NAME          IMAGE                                                                     COMMAND                  SERVICE   CREATED         STATUS                   PORTS
+library-api   sha256:8a1462dbaf3af047269e31d9abc7fb104f8cec598ff1535434e2332f042ccf05   "java -jar app.jar"      api       2 minutes ago   Up 2 minutes             0.0.0.0:8080->8080/tcp, [::]:8080->8080/tcp
+library-db    postgres:16                                                               "docker-entrypoint.s…"   db        2 minutes ago   Up 2 minutes (healthy)   5432/tcp

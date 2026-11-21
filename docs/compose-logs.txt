@@ -1,0 +1,42 @@
+library-api  | 
+library-api  |   .   ____          _            __ _ _
+library-db   | 
+library-db   | PostgreSQL Database directory appears to contain a database; Skipping initialization
+library-db   | 
+library-db   | 2026-11-21 06:15:04.973 UTC [1] LOG:  starting PostgreSQL 16.16 (Debian 16.16-1.pgdg13+1) on x86_64-pc-linux-gnu, compiled by gcc (Debian 14.2.0-19) 14.2.0, 64-bit
+library-db   | 2026-11-21 06:15:04.973 UTC [1] LOG:  listening on IPv4 address "0.0.0.0", port 5432
+library-db   | 2026-11-21 06:15:04.973 UTC [1] LOG:  listening on IPv6 address "::", port 5432
+library-db   | 2026-11-21 06:15:04.984 UTC [1] LOG:  listening on Unix socket "/var/run/postgresql/.s.PGSQL.5432"
+library-api  |  /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+library-api  | ( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+library-db   | 2026-11-21 06:15:04.999 UTC [29] LOG:  database system was shut down at 2026-11-21 06:15:02 UTC
+library-db   | 2026-11-21 06:15:05.015 UTC [1] LOG:  database system is ready to accept connections
+library-api  |  \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+library-api  |   '  |____| .__|_| |_|_| |_\__, | / / / /
+library-api  |  =========|_|==============|___/=/_/_/_/
+library-api  | 
+library-api  |  :: Spring Boot ::                (v3.3.5)
+library-api  | 
+library-api  | 2026-11-21T06:15:14.004Z  INFO 1 --- [library-api] [           main] com.example.library.LibraryApplication   : Starting LibraryApplication v1.0.0 using Java 21.0.13.1 with PID 1 (/app/app.jar started by root in /app)
+library-api  | 2026-11-21T06:15:14.011Z  INFO 1 --- [library-api] [           main] com.example.library.LibraryApplication   : No active profile set, falling back to 1 default profile: "default"
+library-api  | 2026-11-21T06:15:16.354Z  INFO 1 --- [library-api] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+library-api  | 2026-11-21T06:15:16.526Z  INFO 1 --- [library-api] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 140 ms. Found 1 JPA repository interface.
+library-api  | 2026-11-21T06:15:18.166Z  INFO 1 --- [library-api] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+library-api  | 2026-11-21T06:15:18.209Z  INFO 1 --- [library-api] [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+library-api  | 2026-11-21T06:15:18.210Z  INFO 1 --- [library-api] [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.31]
+library-api  | 2026-11-21T06:15:18.310Z  INFO 1 --- [library-api] [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+library-api  | 2026-11-21T06:15:18.315Z  INFO 1 --- [library-api] [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 4121 ms
+library-api  | 2026-11-21T06:15:18.873Z  INFO 1 --- [library-api] [           main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+library-api  | 2026-11-21T06:15:19.117Z  INFO 1 --- [library-api] [           main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.5.3.Final
+library-api  | 2026-11-21T06:15:19.246Z  INFO 1 --- [library-api] [           main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+library-api  | 2026-11-21T06:15:20.381Z  INFO 1 --- [library-api] [           main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+library-api  | 2026-11-21T06:15:20.489Z  INFO 1 --- [library-api] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+library-api  | 2026-11-21T06:15:21.082Z  INFO 1 --- [library-api] [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@7b211077
+library-api  | 2026-11-21T06:15:21.085Z  INFO 1 --- [library-api] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+library-api  | 2026-11-21T06:15:23.467Z  INFO 1 --- [library-api] [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+library-api  | 2026-11-21T06:15:23.584Z  INFO 1 --- [library-api] [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+library-api  | 2026-11-21T06:15:25.558Z  INFO 1 --- [library-api] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
+library-api  | 2026-11-21T06:15:25.594Z  INFO 1 --- [library-api] [           main] com.example.library.LibraryApplication   : Started LibraryApplication in 13.106 seconds (process running for 14.761)
+library-api  | 2026-11-21T06:15:27.244Z  INFO 1 --- [library-api] [nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+library-api  | 2026-11-21T06:15:27.245Z  INFO 1 --- [library-api] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+library-api  | 2026-11-21T06:15:27.249Z  INFO 1 --- [library-api] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 4 ms
